@@ -2,8 +2,9 @@
 The Lightweight Tool for Minecraft Main Menu Screen Panoramas
 
 ### 🚀 What is DuxLay 360 Splitter?
+Convert any 360° equirectangular image into Minecraft-ready skybox faces no Photoshop needed.
 
-DuxLay 360 Splitter is a clean, modern, and efficient utility designed to take any 360° panoramic image (equirectangular projection) and instantly slice it into the six required cubic faces (panorama_0 through panorama_5) needed for Minecraft custom resource packs.
+DuxLay 360 Splitter is a clean, modern, and efficient utility designed to take any 360° panoramic image (equirectangular projection) and instantly slice it into the six required cubic faces (panorama_0 through panorama_5) needed for Minecraft custom resource packs
 
 It is designed for creators who want to transform their game’s title screen into a truly immersive experience without the headache of manual cropping or complex image manipulation software.
 
