@@ -7,7 +7,22 @@ Requisitos: pip install pillow numpy
 """
 
 import os, sys, math, random, threading, traceback, webbrowser
+import ctypes  # <--- Agregamos este para el truco de la barra de tareas
 
+# ──────────────────────────────────────────────────────────────
+#  TRUCO MAESTRO PARA LA BARRA DE TAREAS (EVITA EL ICONO VACÍO)
+# ──────────────────────────────────────────────────────────────
+try:
+    # Fuerza a Windows a identificar este script compilado como una app única con su propio icono
+    id_aplicacion = 'duxlay.panoconverter.minecraft.1.0'
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(id_aplicacion)
+except Exception:
+    pass
+
+
+# ──────────────────────────────────────────────────────────────
+#  MANEJO DE LIBRERÍAS DE TERCEROS
+# ──────────────────────────────────────────────────────────────
 try:
     import numpy as np
 except ImportError:
@@ -23,6 +38,16 @@ try:
     from tkinter import ttk, filedialog, messagebox
 except ImportError:
     print("Tkinter no disponible. En Linux: sudo apt install python3-tk"); sys.exit(1)
+
+
+# ──────────────────────────────────────────────────────────────
+#  FUNCIÓN EXTRA PARA EXTRAER EL ICONO EN RUTA TEMPORAL (.EXE)
+# ──────────────────────────────────────────────────────────────
+def obtener_ruta_recurso(ruta_relativa):
+    """ Encuentra la ruta del archivo tanto en desarrollo como dentro del .exe compilado """
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, ruta_relativa)
+    return os.path.join(os.path.abspath("."), ruta_relativa)
 
 
 # ──────────────────────────────────────────────────────────────
@@ -769,6 +794,16 @@ class PanoramaApp:
 
 def main():
     root=tk.Tk()
+    
+    # ──────────────────────────────────────────────────────────────
+    #  INYECCIÓN DEL ICONO MULTIRESOLUCIÓN EN LA VENTANA PRINCIPAL
+    # ──────────────────────────────────────────────────────────────
+    try:
+        ruta_icono = obtener_ruta_recurso("icono.ico")
+        root.iconbitmap(ruta_icono)
+    except Exception:
+        pass
+        
     PanoramaApp(root)
     root.mainloop()
 
